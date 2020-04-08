@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="bbcf9ff6-9d10-42fd-9896-9541cb21968d" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ProjectId" id="1aBJOvm42xlP1bqKW2J7IowE7wy" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+  </component>
+  <component name="RunManager">
+    <configuration name="LancerJeu" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="PM_Swing" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="bbcf9ff6-9d10-42fd-9896-9541cb21968d" name="Default Changelist" comment="" />
+      <created>1586203024275</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1586203024275</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="137" y="19" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1586203060055">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="137" y="19" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.728@0.0.1366.728" timestamp="1586203060055" />
+    <state x="488" y="80" key="#com.intellij.ide.util.MemberChooser" timestamp="1586203947488">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="488" y="80" key="#com.intellij.ide.util.MemberChooser/0.0.1366.728@0.0.1366.728" timestamp="1586203947488" />
+    <state x="412" y="148" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1586203058284">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="412" y="148" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1366.728@0.0.1366.728" timestamp="1586203058284" />
+    <state width="1323" height="181" key="GridCell.Tab.0.bottom" timestamp="1586220532854">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1323" height="181" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1586220532854" />
+    <state width="1323" height="181" key="GridCell.Tab.0.center" timestamp="1586220532853">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1323" height="181" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1586220532853" />
+    <state width="1323" height="181" key="GridCell.Tab.0.left" timestamp="1586220532853">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1323" height="181" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1586220532853" />
+    <state width="1323" height="181" key="GridCell.Tab.0.right" timestamp="1586220532854">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1323" height="181" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1586220532854" />
+    <state x="-7" y="0" width="697" height="371" key="dock-window-1" timestamp="1586219984852">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="-7" y="0" width="697" height="371" key="dock-window-1/0.0.1366.728@0.0.1366.728" timestamp="1586219984852" />
+  </component>
+</project>

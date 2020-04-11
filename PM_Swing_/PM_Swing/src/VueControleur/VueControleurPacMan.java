@@ -85,9 +85,9 @@ public class VueControleurPacMan extends JFrame implements Observer {
 
     private void chargerLesIcones() {
         icoPacMan = chargerIcone("Images/Pacman.png");
-        icoCouloir = chargerIcone("Images/Couloir.png");
-        icoFantome = chargerIcone("Images/Fantome.png");
-        ImageMurs = chargerIcone("Images/Mur.jpg");
+        icoCouloir = chargerIcone("Images/Vide.png");
+        icoFantome = chargerIcone("Images/Fantom.png");
+        ImageMurs = chargerIcone("Images/OR.jpg");
         ImageGomme = chargerIcone("Images/bonbon.png");
 
     }
@@ -110,7 +110,7 @@ public class VueControleurPacMan extends JFrame implements Observer {
         setSize(400, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // permet de terminer l'application à la fermeture de la fenêtre
 
-        JComponent grilleJLabels = new JPanel(new GridLayout(10, 10)); // grilleJLabels va contenir les cases graphiques et les positionner sous la forme d'une grille
+        JComponent grilleJLabels = new JPanel(new GridLayout(15, 15)); // grilleJLabels va contenir les cases graphiques et les positionner sous la forme d'une grille
 
         tabJLabel = new JLabel[sizeX][sizeY];
         

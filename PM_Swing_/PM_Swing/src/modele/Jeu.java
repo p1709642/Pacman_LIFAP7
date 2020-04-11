@@ -19,8 +19,8 @@ import modele.Pac_Gommes;
  */
 public class Jeu extends Observable implements Runnable {
 
-    public static final int SIZE_X = 10;
-    public static final int SIZE_Y = 10;
+    public static final int SIZE_X = 15;
+    public static final int SIZE_Y = 15;
 
     private Pacman pm;
     private Fantome f;
@@ -67,9 +67,9 @@ public class Jeu extends Observable implements Runnable {
     {
         int nbGomme=0;
        gomme= new Pac_Gommes(this);
-        for(int i=0; i<10;i++)
+        for(int i=0; i<SIZE_X;i++)
         {
-          for(int j=0; j<10;j++)
+          for(int j=0; j<SIZE_X;j++)
           {
               if(grilleEntites[i][j]==null)
               {
@@ -91,16 +91,16 @@ public class Jeu extends Observable implements Runnable {
     {
         Murs m;
         m = new Murs(this);
-        for (int i=0; i< 10;i++)
+        for (int i=0; i< SIZE_X;i++)
         {
         grilleEntites[0][i] = m;
         map.put(m, new Point(0,i));
         grilleEntites[i][0] = m;
         map.put(m, new Point(i,0));
-        grilleEntites[i][9] = m;
-        map.put(m, new Point(i,9));
-        grilleEntites[9][i] = m;
-        map.put(m, new Point(9,i));
+        grilleEntites[i][SIZE_X-1] = m;
+        map.put(m, new Point(i,SIZE_X-1));
+        grilleEntites[SIZE_X-1][i] = m;
+        map.put(m, new Point(SIZE_X-1,i));
         }
         for (int j=2; j< 10-2;j++)
         {

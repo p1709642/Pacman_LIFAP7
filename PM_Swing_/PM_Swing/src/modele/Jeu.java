@@ -186,12 +186,13 @@ public class Jeu extends Observable implements Runnable {
             {
              deplacerEntiteColision(pCourant, pCible, e/*,d*/);
             }
+            return false;
              //deplacerEntiteColision(pCourant, pCible, e/*,d*/);
 
         //}while(NbVie!=0);
          //deplacerEntite(pCourant, pCible, e);
 
-            retour = true;
+         //   retour = true;
         }
       
         else {

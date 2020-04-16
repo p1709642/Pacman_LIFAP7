@@ -55,8 +55,8 @@ public class Jeu extends Observable implements Runnable {
     private void initialisationDesEntites() {
         
         pm = new Pacman(this);
-        grilleEntites[4][1] = pm;
-        map.put(pm, new Point(4,1));
+        grilleEntites[7][7] = pm;
+        map.put(pm, new Point(7,7));
     
 
         f = new Fantome(this);
@@ -108,28 +108,105 @@ public class Jeu extends Observable implements Runnable {
         grilleEntites[SIZE_X-1][i] = m;
         map.put(m, new Point(SIZE_X-1,i));
         }
-        for (int j=2; j< 10-2;j++)
+        for (int j=0; j< 5;j++)
         {
-        grilleEntites[j][2] = m;
-        map.put(m, new Point(j,2));
-        grilleEntites[5][j] = m;
-        map.put(m, new Point(5,j));
-        grilleEntites[4][j] = m;
-        map.put(m, new Point(4,j));
-        grilleEntites[j][7] = m;
-        map.put(m, new Point(j,7));
+        grilleEntites[7][1+j] = m;
+        map.put(m, new Point(7,1+j));
+        grilleEntites[1+j][7] = m;
+        map.put(m, new Point(1+j,7));
+        grilleEntites[7][13-j] = m;
+        map.put(m, new Point(7,13-j));
+        grilleEntites[13-j][7] = m;
+        map.put(m, new Point(13-j,7));
 
         }
        grilleEntites[2][4] = m;
        map.put(m, new Point(2,4));
        grilleEntites[2][5] = m;
        map.put(m, new Point(2,5));
-       grilleEntites[7][4] = m;
-       map.put(m, new Point(7,4));
-       grilleEntites[7][5] = m;
-       map.put(m, new Point(7,5));
+       grilleEntites[2][3] = m;
+       map.put(m, new Point(2,3));
+       grilleEntites[2][2] = m;
+       map.put(m, new Point(2,2));
+       grilleEntites[3][2] = m;
+       map.put(m, new Point(3,2));
+       grilleEntites[4][2] = m;
+       map.put(m, new Point(4,2));
+       grilleEntites[5][2] = m;
+       map.put(m, new Point(5,2));
+       grilleEntites[4][5] = m;
+       map.put(m, new Point(4,5));
+       grilleEntites[4][4] = m;
+       map.put(m, new Point(4,4));
+       grilleEntites[5][4] = m;
+       map.put(m, new Point(5,4));
+       
+       
+       
+       grilleEntites[2][12] = m;
+       map.put(m, new Point(2,12));
+       grilleEntites[2][11] = m;
+       map.put(m, new Point(2,11));
+       grilleEntites[2][10] = m;
+       map.put(m, new Point(2,10));
+       grilleEntites[2][9] = m;
+       map.put(m, new Point(2,9));
+       grilleEntites[3][12] = m;
+       map.put(m, new Point(3,12));
+       grilleEntites[4][12] = m;
+       map.put(m, new Point(4,12));
+       grilleEntites[5][12] = m;
+       map.put(m, new Point(5,12));
+       grilleEntites[4][10] = m;
+       map.put(m, new Point(4,10));
+       grilleEntites[4][9] = m;
+       map.put(m, new Point(4,9));
+       grilleEntites[5][10] = m;
+       map.put(m, new Point(5,10));
+       
         
-        
+       grilleEntites[12][2] = m;
+       map.put(m, new Point(12,2));
+       grilleEntites[11][2] = m;
+       map.put(m, new Point(11,2));
+       grilleEntites[10][2] = m;
+       map.put(m, new Point(10,2));
+       grilleEntites[9][2] = m;
+       map.put(m, new Point(9,2));
+       grilleEntites[12][3] = m;
+       map.put(m, new Point(12,3));
+       grilleEntites[12][4] = m;
+       map.put(m, new Point(12,4));
+       grilleEntites[12][5] = m;
+       map.put(m, new Point(12,5));
+       grilleEntites[10][4] = m;
+       map.put(m, new Point(10,4));
+       grilleEntites[9][4] = m;
+       map.put(m, new Point(9,4));
+       grilleEntites[10][5] = m;
+       map.put(m, new Point(10,5));
+       
+       grilleEntites[12][12] = m;
+       map.put(m, new Point(12,12));
+       grilleEntites[12][11] = m;
+       map.put(m, new Point(12,11));
+       grilleEntites[12][10] = m;
+       map.put(m, new Point(12,10));
+       grilleEntites[12][9] = m;
+       map.put(m, new Point(12,9));
+       grilleEntites[11][12] = m;
+       map.put(m, new Point(11,12));
+       grilleEntites[10][12] = m;
+       map.put(m, new Point(10,12));
+       grilleEntites[9][12] = m;
+       map.put(m, new Point(9,12));
+       grilleEntites[10][10] = m;
+       map.put(m, new Point(10,10));
+       grilleEntites[10][9] = m;
+       map.put(m, new Point(10,9));
+       grilleEntites[9][10] = m;
+       map.put(m, new Point(9,10));
+       
     }
     
     
@@ -243,11 +320,11 @@ public class Jeu extends Observable implements Runnable {
         grilleEntites[pCourant.x][pCourant.y] = null;
         grilleEntites[pCible.x][pCible.y] = null;
         map.put(e, pCible);
-            grilleEntites[2][1] = pm;
-            map.put(pm, new Point(2,1));
+            grilleEntites[7][7] = pm;
+            map.put(pm, new Point(7,7));
             
-            grilleEntites[6][1] = f;
-            map.put(f, new Point(6,1));
+            grilleEntites[1][1] = f;
+            map.put(f, new Point(1,1));
         
        // deplacerEntite(e,d);
     } 

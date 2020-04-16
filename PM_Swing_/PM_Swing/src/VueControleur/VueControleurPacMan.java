@@ -155,10 +155,13 @@ public class VueControleurPacMan extends JFrame implements Observer {
 
     private void AffichageWin(){
         
-        add(new JLabel(new ImageIcon("Images/OR.jpg")));
-        //pack();
-        //setVisible(true);
-        //setSize(400,500);
+        frame.add(new JLabel(new ImageIcon("Images/OR.jpg")));
+        frame.setBounds(400, 0, 400, 500);
+        //frame.pack();
+        frame.setVisible(true);
+        //frame.setSize(400,500);                
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 }
     
     private void AffichageLoose(){

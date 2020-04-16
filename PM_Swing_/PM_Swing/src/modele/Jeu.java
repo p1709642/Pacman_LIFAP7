@@ -4,12 +4,16 @@
  * and open the template in the editor.
  */
 package modele;
+import java.awt.Image;
 import java.awt.Point;
 import java.util.HashMap;
 import java.util.Observable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.text.html.ImageView;
 import modele.Pac_Gommes;
+//import javafx.scene.image.ImageView;
+
 
 /** La classe Jeu a deux fonctions 
  *  (1) Gérer les aspects du jeu : condition de défaite, victoire, nombre de vies
@@ -29,7 +33,7 @@ public class Jeu extends Observable implements Runnable {
     private HashMap<Entite, Point> map = new  HashMap<Entite, Point>(); // permet de récupérer la position d'une entité à partir de sa référence
     private Entite[][] grilleEntites = new Entite[SIZE_X][SIZE_Y]; // permet de récupérer une entité à partir de ses coordonnées
     
-    private int NbVie = 3;
+    public int NbVie = 3;
     // TODO : ajouter les murs, couloir, PacGums, et adapter l'ensemble des fonctions (prévoir le raffraichissement également du côté de la vue)
     
     
@@ -186,13 +190,19 @@ public class Jeu extends Observable implements Runnable {
             {
              deplacerEntiteColision(pCourant, pCible, e/*,d*/);
             }
-            return false;
+            else
+            {   
+                Arret(pCourant, pCible, e);
+                
+            }
+            
+            //return false;
              //deplacerEntiteColision(pCourant, pCible, e/*,d*/);
 
         //}while(NbVie!=0);
          //deplacerEntite(pCourant, pCible, e);
 
-         //   retour = true;
+            retour = true;
         }
       
         else {
@@ -234,12 +244,17 @@ public class Jeu extends Observable implements Runnable {
             grilleEntites[2][1] = pm;
             map.put(pm, new Point(2,1));
             
-            grilleEntites[10][1] = f;
+            grilleEntites[4][1] = f;
             map.put(f, new Point(10,1));
         
        // deplacerEntite(e,d);
     } 
     
+       private void Arret(Point pCourant, Point pCible, Entite e) {
+        grilleEntites[pCourant.x][pCourant.y] = null;
+        grilleEntites[pCible.x][pCible.y] = null;
+    } 
+       
     
     
 

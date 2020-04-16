@@ -1,6 +1,8 @@
 package VueControleur;
 
+import java.awt.Graphics;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -43,8 +45,9 @@ public class VueControleurPacMan extends JFrame implements Observer {
     private ImageIcon icoCouloir;
     private ImageIcon ImageMurs;
     private ImageIcon ImageGomme;
-    
-
+    private ImageIcon ImageFIN;
+    private Image image;
+    private JFrame frame= new JFrame();
     private JLabel[][] tabJLabel; // cases graphique (au moment du rafraichissement, chaque case va être associé à une icône, suivant ce qui est présent dans la partie modèle)
 
 
@@ -59,6 +62,7 @@ public class VueControleurPacMan extends JFrame implements Observer {
         ajouterEcouteurClavier();
 
     }
+    
 
     private void ajouterEcouteurClavier() {
 
@@ -89,6 +93,7 @@ public class VueControleurPacMan extends JFrame implements Observer {
         icoFantome = chargerIcone("Images/Fantom.png");
         ImageMurs = chargerIcone("Images/OR.jpg");
         ImageGomme = chargerIcone("Images/bonbon.png");
+        ImageFIN = chargerIcone("Images/bonbon.png");
 
     }
 
@@ -103,15 +108,31 @@ public class VueControleurPacMan extends JFrame implements Observer {
         }
         return new ImageIcon(image);
     }
-
+    
+    /*public void paintComponent(Graphics g)
+    {
+        try{
+            Image img =ImageIO.read(new File ("Images/bonbon.png"));
+            g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
+        }catch (IOException e)
+        {
+            e.printStackTrace();
+            System.out.print("ERREUR");
+        }
+    }
+    */
+    
     private void placerLesComposantsGraphiques() {
 
+        
         setTitle("PacMan");
         setSize(400, 500);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // permet de terminer l'application à la fermeture de la fenêtre
-
-        JComponent grilleJLabels = new JPanel(new GridLayout(15, 15)); // grilleJLabels va contenir les cases graphiques et les positionner sous la forme d'une grille
-
+         // permet de terminer l'application à la fermeture de la fenêtre
+        JComponent grilleJLabels = new JPanel(new GridLayout(15, 15));
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+        
+               
+        // grilleJLabels va contenir les cases graphiques et les positionner sous la forme d'une grille
         tabJLabel = new JLabel[sizeX][sizeY];
         
 
@@ -127,10 +148,26 @@ public class VueControleurPacMan extends JFrame implements Observer {
         }
 
         add(grilleJLabels);
+        
+        
 
     }
 
+    private void AffichageWin(){
+        
+        add(new JLabel(new ImageIcon("Images/OR.jpg")));
+        //pack();
+        //setVisible(true);
+        //setSize(400,500);
+}
     
+    private void AffichageLoose(){
+            JFrame frame= new JFrame();
+            frame.add(new JLabel(new ImageIcon("Images/OR.jpg")));
+            frame.pack();
+            frame.setVisible(true);
+            frame.setSize(400,500);
+}
     /**
      * Il y a une grille du côté du modèle ( jeu.getGrille() ) et une grille du côté de la vue (tabJLabel)
      */
@@ -173,6 +210,11 @@ public class VueControleurPacMan extends JFrame implements Observer {
 
             }
         }
+        if (jeu.NbVie == 0)
+        {
+           AffichageWin(); 
+        }
+
 
     }
 
@@ -181,7 +223,9 @@ public class VueControleurPacMan extends JFrame implements Observer {
         
         
         mettreAJourAffichage();
-        
+                    
+        //img.setImage(new Image("win.png") {});
+
         
         /*
         SwingUtilities.invokeLater(new Runnable() {

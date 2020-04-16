@@ -157,19 +157,19 @@ public class VueControleurPacMan extends JFrame implements Observer {
         
         frame.add(new JLabel(new ImageIcon("Images/OR.jpg")));
         frame.setBounds(400, 0, 400, 500);
-        //frame.pack();
         frame.setVisible(true);
+        //setVisible(false);
         //frame.setSize(400,500);                
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 }
     
     private void AffichageLoose(){
-            JFrame frame= new JFrame();
-            frame.add(new JLabel(new ImageIcon("Images/OR.jpg")));
-            frame.pack();
-            frame.setVisible(true);
-            frame.setSize(400,500);
+        frame.add(new JLabel(new ImageIcon("Images/OR.jpg")));
+        frame.setBounds(400, 0, 400, 500);
+        frame.setVisible(true);
+        //frame.setSize(400,500);                
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 }
     /**
      * Il y a une grille du côté du modèle ( jeu.getGrille() ) et une grille du côté de la vue (tabJLabel)
@@ -216,6 +216,10 @@ public class VueControleurPacMan extends JFrame implements Observer {
         if (jeu.NbVie == 0)
         {
            AffichageWin(); 
+        }
+        if (jeu.nbGomme == 0)
+        {
+           AffichageLoose(); 
         }
 
 

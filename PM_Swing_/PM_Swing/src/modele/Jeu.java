@@ -34,6 +34,7 @@ public class Jeu extends Observable implements Runnable {
     private Entite[][] grilleEntites = new Entite[SIZE_X][SIZE_Y]; // permet de récupérer une entité à partir de ses coordonnées
     
     public int NbVie = 3;
+    public int nbGomme=0;
     // TODO : ajouter les murs, couloir, PacGums, et adapter l'ensemble des fonctions (prévoir le raffraichissement également du côté de la vue)
     
     
@@ -70,7 +71,7 @@ public class Jeu extends Observable implements Runnable {
     
     public void InitGomme()
     {
-        int nbGomme=0;
+        
        gomme= new Pac_Gommes(this);
         for(int i=0; i<SIZE_X;i++)
         {
@@ -152,39 +153,43 @@ public class Jeu extends Observable implements Runnable {
         
         Point pCible = calculerPointCible(pCourant, d);
        
-        if (Cadre(pCible) && (objetALaPosition(pCible)instanceof Pac_Gommes || objetALaPosition(pCible)==null) && objetALaPosition(pCourant)instanceof Pacman) { // a adapter (collisions murs, etc.)
-            //if ((map.get(pm)) == map.get(gomme))
-            {
+        if (Cadre(pCible) && (objetALaPosition(pCible)instanceof Pac_Gommes) && objetALaPosition(pCourant)instanceof Pacman) { // a adapter (collisions murs, etc.)
                 Point tampon =pCible;
                 grilleEntites[tampon.x][tampon.y]=null;
-                //System.out.print(map.get(pm));
-                //System.out.print(map.get(f));
+                nbGomme--;
+                System.out.print(nbGomme);
+                if (nbGomme<0)
+                {
+                    Arret(pCourant, pCible, e);
+                }
                 deplacerEntite(pCourant, pCible, e);
-            
-            }
             retour = true;
         }
-        
+        else if (Cadre(pCible) && (objetALaPosition(pCible) == null) && objetALaPosition(pCourant)instanceof Pacman) {
+            deplacerEntite(pCourant, pCible, e);
+            retour = true;
+            }
         else if (Cadre(pCible) && objetALaPosition(pCible)==null && (objetALaPosition(pCible)instanceof Pac_Gommes || objetALaPosition(pCible)==null) && objetALaPosition(pCourant)instanceof Fantome) {
+
             deplacerEntite(pCourant, pCible, e);
             retour = true;
         }
-        else if(Cadre(pCible) && (objetALaPosition(pCible)instanceof Pac_Gommes || objetALaPosition(pCible)==null) && objetALaPosition(pCourant)instanceof Fantome)
+        else if(Cadre(pCible) && objetALaPosition(pCible)instanceof Pac_Gommes && objetALaPosition(pCourant)instanceof Fantome)
         {
             deplacerEntiteFantome(pCourant, pCible, e);
+            retour = true;
+        }
+         else if(Cadre(pCible) && objetALaPosition(pCible)==null && objetALaPosition(pCourant)instanceof Fantome)
+        {
+            deplacerEntiteFantome2(pCourant, pCible, e);
             retour = true;
         }
         
         else if ((objetALaPosition(pCourant)instanceof Pacman && objetALaPosition(pCible)instanceof Fantome) || (objetALaPosition(pCible)instanceof Pacman && objetALaPosition(pCourant)instanceof Fantome))
         {
-          //  do
-        //{
             System.out.print(NbVie);
             NbVie--;
-            
-            
             pCourant = map.get(e);
-            
             pCible = calculerPointCible(pCourant, d);
             if(NbVie>0)
             {
@@ -192,17 +197,9 @@ public class Jeu extends Observable implements Runnable {
             }
             else
             {   
-                Arret(pCourant, pCible, e);
-                
+                Arret(pCourant, pCible, e);    
             }
-            
-            //return false;
-             //deplacerEntiteColision(pCourant, pCible, e/*,d*/);
-
-        //}while(NbVie!=0);
-         //deplacerEntite(pCourant, pCible, e);
-
-            retour = true;
+             retour = true;
         }
       
         else {
@@ -237,6 +234,11 @@ public class Jeu extends Observable implements Runnable {
         grilleEntites[pCible.x][pCible.y] = e;
         map.put(e, pCible);
     }
+        private void deplacerEntiteFantome2(Point pCourant, Point pCible, Entite e) {
+        grilleEntites[pCourant.x][pCourant.y] = null;
+        grilleEntites[pCible.x][pCible.y] = e;
+        map.put(e, pCible);
+    }
        private void deplacerEntiteColision(Point pCourant, Point pCible, Entite e/*, Direction d*/) {
         grilleEntites[pCourant.x][pCourant.y] = null;
         grilleEntites[pCible.x][pCible.y] = null;
@@ -244,8 +246,8 @@ public class Jeu extends Observable implements Runnable {
             grilleEntites[2][1] = pm;
             map.put(pm, new Point(2,1));
             
-            grilleEntites[4][1] = f;
-            map.put(f, new Point(10,1));
+            grilleEntites[6][1] = f;
+            map.put(f, new Point(6,1));
         
        // deplacerEntite(e,d);
     } 

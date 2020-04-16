@@ -3,6 +3,8 @@ package VueControleur;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.Font;
+import javax.swing.JButton;
 import java.awt.Rectangle;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -46,6 +48,7 @@ public class VueControleurPacMan extends JFrame implements Observer {
     private ImageIcon ImageMurs;
     private ImageIcon ImageGomme;
     private ImageIcon ImageFIN;
+    private ImageIcon ImageWIN;
     private Image image;
     private JFrame frame= new JFrame();
     private JLabel[][] tabJLabel; // cases graphique (au moment du rafraichissement, chaque case va être associé à une icône, suivant ce qui est présent dans la partie modèle)
@@ -93,8 +96,8 @@ public class VueControleurPacMan extends JFrame implements Observer {
         icoFantome = chargerIcone("Images/Fantom.png");
         ImageMurs = chargerIcone("Images/OR.jpg");
         ImageGomme = chargerIcone("Images/bonbon.png");
-        ImageFIN = chargerIcone("Images/bonbon.png");
-
+        ImageFIN = chargerIcone("Images/GameOver.jpg");
+        ImageWIN = chargerIcone("Images/victoire.jpg");
     }
 
     private ImageIcon chargerIcone(String urlIcone) {
@@ -130,6 +133,8 @@ public class VueControleurPacMan extends JFrame implements Observer {
          // permet de terminer l'application à la fermeture de la fenêtre
         JComponent grilleJLabels = new JPanel(new GridLayout(15, 15));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+        JLabel label = new JLabel("Bienvenue dans ma modeste application");
+	
         
                
         // grilleJLabels va contenir les cases graphiques et les positionner sous la forme d'une grille
@@ -146,17 +151,20 @@ public class VueControleurPacMan extends JFrame implements Observer {
             }
 
         }
-
+        //grilleJLabels.
+        
         add(grilleJLabels);
-        
-        
+
+
+        //label.setBounds(0,0, 1, 1);
+        //label.setOpaque (true);
+        //add(label);
 
     }
 
     private void AffichageWin(){
-        
-        frame.add(new JLabel(new ImageIcon("Images/OR.jpg")));
-        frame.setBounds(400, 0, 400, 500);
+        frame.add(new JLabel(ImageWIN));
+        frame.setBounds(400, 0, 500, 370);
         frame.setVisible(true);
         //setVisible(false);
         //frame.setSize(400,500);                
@@ -165,8 +173,8 @@ public class VueControleurPacMan extends JFrame implements Observer {
 }
     
     private void AffichageLoose(){
-        frame.add(new JLabel(new ImageIcon("Images/OR.jpg")));
-        frame.setBounds(400, 0, 400, 500);
+        frame.add(new JLabel(ImageFIN));
+        frame.setBounds(400, 0, 500, 500);
         frame.setVisible(true);
         //frame.setSize(400,500);                
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

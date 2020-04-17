@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="PM_Swing">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/PM_Swing/dist/PM_Swing.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

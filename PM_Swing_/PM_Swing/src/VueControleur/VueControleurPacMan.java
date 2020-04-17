@@ -3,6 +3,8 @@ package VueControleur;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.TextArea;
+import java.awt.TextComponent;
 import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.Rectangle;
@@ -21,6 +23,7 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import java.text.*;
 import javax.swing.SwingUtilities;
 import modele.Direction;
 import modele.Fantome;
@@ -28,6 +31,7 @@ import modele.Jeu;
 import modele.Pacman;
 import modele.Murs;
 import modele.Pac_Gommes;
+import modele.*;
 
 /** Cette classe a deux fonctions :
  *  (1) Vue : proposer une représentation graphique de l'application (cases graphiques, etc.)
@@ -51,6 +55,8 @@ public class VueControleurPacMan extends JFrame implements Observer {
     private ImageIcon ImageWIN;
     private Image image;
     private JFrame frame= new JFrame();
+    private JFrame frame1= new JFrame();
+
     private JLabel[][] tabJLabel; // cases graphique (au moment du rafraichissement, chaque case va être associé à une icône, suivant ce qui est présent dans la partie modèle)
 
 
@@ -133,10 +139,13 @@ public class VueControleurPacMan extends JFrame implements Observer {
          // permet de terminer l'application à la fermeture de la fenêtre
         JComponent grilleJLabels = new JPanel(new GridLayout(15, 15));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
-        JLabel label = new JLabel("Bienvenue dans ma modeste application");
-	
         
-               
+        
+     //   JLabel label;
+     //   label = new JLabel(jeu.NbVie);
+	/*frame1.setBounds(400, 0, 500, 370);
+        frame1.add(label);
+        frame1.setVisible(true);*/
         // grilleJLabels va contenir les cases graphiques et les positionner sous la forme d'une grille
         tabJLabel = new JLabel[sizeX][sizeY];
         
@@ -153,9 +162,9 @@ public class VueControleurPacMan extends JFrame implements Observer {
         }
         //grilleJLabels.
         
+        
+        //Text titre = new Text(100,30,"Pacman");
         add(grilleJLabels);
-
-
         //label.setBounds(0,0, 1, 1);
         //label.setOpaque (true);
         //add(label);
@@ -204,7 +213,18 @@ public class VueControleurPacMan extends JFrame implements Observer {
                     
                     tabJLabel[x][y].setIcon(ImageGomme);
                 } 
-                
+                    else if (jeu.getGrille()[x][y] instanceof FantomeBD) {
+                    
+                    tabJLabel[x][y].setIcon(icoFantome);
+                } 
+                else if (jeu.getGrille()[x][y] instanceof FantomeBG) {
+                    
+                    tabJLabel[x][y].setIcon(icoFantome);
+                } 
+                else if (jeu.getGrille()[x][y] instanceof FantomeHD) {
+                    
+                    tabJLabel[x][y].setIcon(icoFantome);
+                } 
                 
                 
                 
@@ -223,11 +243,11 @@ public class VueControleurPacMan extends JFrame implements Observer {
         }
         if (jeu.NbVie == 0)
         {
-           AffichageWin(); 
+           AffichageLoose(); 
         }
         if (jeu.nbGomme == 0)
         {
-           AffichageLoose(); 
+           AffichageWin(); 
         }
 
 

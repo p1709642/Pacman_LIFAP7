@@ -32,6 +32,11 @@ public class Jeu extends Observable implements Runnable {
     private FantomeBD fBD;
     private FantomeBG fBG;
     private Pac_Gommes gomme;
+    private Point pacman;
+    private Point Ghost;
+    private Point GhostHD;
+    private Point GhostBD;
+    private Point GhostBG;
 
     private HashMap<Entite, Point> map = new  HashMap<Entite, Point>(); // permet de récupérer la position d'une entité à partir de sa référence
     private Entite[][] grilleEntites = new Entite[SIZE_X][SIZE_Y]; // permet de récupérer une entité à partir de ses coordonnées
@@ -80,7 +85,8 @@ public class Jeu extends Observable implements Runnable {
         
         
         afficheMurs();
-        InitGomme();       
+        InitGomme();    
+        initPosEntite();
     }
     
     //public Point LastPoint();
@@ -105,7 +111,14 @@ public class Jeu extends Observable implements Runnable {
     }
     
     
-    
+    public void initPosEntite()
+    {
+            pacman=map.get(pm);
+            Ghost=map.get(f);
+            GhostHD=map.get(fHD);
+            GhostBG=map.get(fBG);
+            GhostBD=map.get(fBD);
+    }
 
     
     
@@ -280,6 +293,7 @@ public class Jeu extends Observable implements Runnable {
         
         else if ((objetALaPosition(pCourant)instanceof Pacman && objetALaPosition(pCourant)instanceof Fantome ) || (objetALaPosition(pCible)instanceof Pacman && objetALaPosition(pCourant)instanceof Fantome ))
         {
+            
             System.out.print(NbVie);
             NbVie--;
             pCourant = map.get(e);
@@ -296,6 +310,7 @@ public class Jeu extends Observable implements Runnable {
         }
     else if ((objetALaPosition(pCourant)instanceof Pacman && objetALaPosition(pCourant)instanceof FantomeHD) || (objetALaPosition(pCible)instanceof Pacman && objetALaPosition(pCourant)instanceof FantomeHD))
         {
+
             System.out.print(NbVie);
             NbVie--;
             pCourant = map.get(e);
@@ -405,6 +420,7 @@ public class Jeu extends Observable implements Runnable {
             grilleEntites[13][1] = fHD;
             map.put(fHD, new Point(13,1));
         
+        //RespawnFantome(pCourant,pCible,e);
        // deplacerEntite(e,d);
     } 
     
@@ -433,6 +449,37 @@ public class Jeu extends Observable implements Runnable {
         
        // deplacerEntite(e,d);
     } 
+    
+    private void RespawnFantome(Point pCourant, Point pCible, Entite e/*, Direction d*/)
+    {
+        System.out.print(pacman);
+        grilleEntites[pacman.x][pacman.x] = pm;
+        //System.out.print(map.get(pm));
+        //map.put(pm, map.get(pm));
+        grilleEntites[Ghost.x][Ghost.x] = pm;
+        //map.put(f, map.get(f));
+        grilleEntites[GhostHD.x][GhostHD.x] = pm;
+        //map.put(fHD, map.get(fHD));
+        grilleEntites[GhostBD.x][GhostBD.x] = pm;
+        //map.put(fBD, map.get(fBD));
+        grilleEntites[GhostBG.x][GhostBG.x] = null;
+        //map.put(fBG, map.get(fBG));
+                
+        grilleEntites[7][7] = pm;
+        map.put(pm, new Point(7,7));
+        
+        grilleEntites[1][1] = f;
+        map.put(f, new Point(1, 1));
+        
+        grilleEntites[13][1] = fHD; 
+        map.put(fHD, new Point(13, 1)); 
+               
+        grilleEntites[1][13] = fBG;
+        map.put(fBG, new Point(1, 13));
+        
+        grilleEntites[13][13] = fBD;
+        map.put(fBD, new Point(13,13));
+    }
                      
        private void Arret(Point pCourant, Point pCible, Entite e) {
         grilleEntites[pCourant.x][pCourant.y] = null;

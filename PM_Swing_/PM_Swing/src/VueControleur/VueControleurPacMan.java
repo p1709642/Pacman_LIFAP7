@@ -53,6 +53,7 @@ public class VueControleurPacMan extends JFrame implements Observer {
     private ImageIcon ImageGomme;
     private ImageIcon ImageFIN;
     private ImageIcon ImageWIN;
+    private ImageIcon ImageSuperGomme;
     private Image image;
     private JFrame frame= new JFrame();
     private JFrame frame1= new JFrame();
@@ -102,6 +103,7 @@ public class VueControleurPacMan extends JFrame implements Observer {
         icoFantome = chargerIcone("Images/Fantom.png");
         ImageMurs = chargerIcone("Images/OR.jpg");
         ImageGomme = chargerIcone("Images/bonbon.png");
+        ImageSuperGomme = chargerIcone("Images/superbonbon.png");
         ImageFIN = chargerIcone("Images/GameOver.jpg");
         ImageWIN = chargerIcone("Images/victoire.jpg");
     }
@@ -224,6 +226,9 @@ public class VueControleurPacMan extends JFrame implements Observer {
                 else if (jeu.getGrille()[x][y] instanceof FantomeHD) {
                     
                     tabJLabel[x][y].setIcon(icoFantome);
+                } else if (jeu.getGrille()[x][y] instanceof SuperGomme) {
+                    
+                    tabJLabel[x][y].setIcon(ImageSuperGomme);
                 } 
                 
                 
@@ -245,7 +250,7 @@ public class VueControleurPacMan extends JFrame implements Observer {
         {
            AffichageLoose(); 
         }
-        if (jeu.nbGomme == 0)
+        if (jeu.nbGomme <= 4)
         {
            AffichageWin(); 
         }

@@ -57,7 +57,8 @@ public class VueControleurPacMan extends JFrame implements Observer {
     private Image image;
     private JFrame frame= new JFrame();
     private JFrame frame1= new JFrame();
-
+    private JFrame frame2= new JFrame();
+    
     private JLabel[][] tabJLabel; // cases graphique (au moment du rafraichissement, chaque case va être associé à une icône, suivant ce qui est présent dans la partie modèle)
 
 
@@ -101,7 +102,7 @@ public class VueControleurPacMan extends JFrame implements Observer {
         icoPacMan = chargerIcone("Images/Pacman.png");
         icoCouloir = chargerIcone("Images/Vide.png");
         icoFantome = chargerIcone("Images/Fantom.png");
-        ImageMurs = chargerIcone("Images/OR.jpg");
+        ImageMurs = chargerIcone("Images/Mur.jpg");
         ImageGomme = chargerIcone("Images/bonbon.png");
         ImageSuperGomme = chargerIcone("Images/superbonbon.png");
         ImageFIN = chargerIcone("Images/GameOver.jpg");
@@ -143,11 +144,16 @@ public class VueControleurPacMan extends JFrame implements Observer {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
         
         
-     //   JLabel label;
-     //   label = new JLabel(jeu.NbVie);
-	/*frame1.setBounds(400, 0, 500, 370);
-        frame1.add(label);
-        frame1.setVisible(true);*/
+        JLabel label;
+        label = new JLabel("Score : ");
+        JLabel label2;
+        label2 = new JLabel("Vie : ");
+	frame1.setBounds(0, 500, 100, 100);
+        frame2.setBounds(110, 500, 100, 100);
+        frame1.add(label2);
+        frame2.add(label);
+        frame1.setVisible(true);
+        frame2.setVisible(true);
         // grilleJLabels va contenir les cases graphiques et les positionner sous la forme d'une grille
         tabJLabel = new JLabel[sizeX][sizeY];
         
@@ -250,7 +256,7 @@ public class VueControleurPacMan extends JFrame implements Observer {
         {
            AffichageLoose(); 
         }
-        if (jeu.nbGomme <= 4)
+        if (jeu.nbGomme <= 0)
         {
            AffichageWin(); 
         }

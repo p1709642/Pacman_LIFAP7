@@ -32,7 +32,7 @@ public class FantomeHD extends Entite {
                 d = Direction.bas;
                 break;
             case 2:
-                d = Direction.gauche;
+                d = Direction.droite;
                 break;
             case 3:
                 d = Direction.haut;

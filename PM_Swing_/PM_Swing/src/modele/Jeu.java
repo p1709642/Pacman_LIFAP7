@@ -23,20 +23,16 @@ import modele.Pac_Gommes;
  */
 public class Jeu extends Observable implements Runnable {
 
-    public static final int SIZE_X = 15;
-    public static final int SIZE_Y = 15;
+    public static final int SIZE_X = 12;
+    public static final int SIZE_Y = 12;
 
     private Pacman pm;
     private Fantome f;
     private SuperGomme sg;
-    private FantomeHD fHD;
-    private FantomeBD fBD;
     private FantomeBG fBG;
     private Pac_Gommes gomme;
     private Point pacman;
     private Point Ghost;
-    private Point GhostHD;
-    private Point GhostBD;
     private Point GhostBG;
 
     private HashMap<Entite, Point> map = new  HashMap<Entite, Point>(); // permet de récupérer la position d'une entité à partir de sa référence
@@ -65,35 +61,28 @@ public class Jeu extends Observable implements Runnable {
     private void initialisationDesEntites() {
         
         pm = new Pacman(this);
-        grilleEntites[7][7] = pm;
-        map.put(pm, new Point(7,7));
+        grilleEntites[6][5] = pm;
+        map.put(pm, new Point(6,5));
     
 
         f = new Fantome(this);
-        grilleEntites[1][1] = f;
-        map.put(f, new Point(1, 1));
-        
-        fHD = new FantomeHD(this);
-        grilleEntites[13][1] = fHD;
-        map.put(fHD, new Point(13, 1));
+        grilleEntites[4][5] = f;
+        map.put(f, new Point(4, 5));
         
         fBG = new FantomeBG(this);
-        grilleEntites[1][13] = fBG;
-        map.put(fBG, new Point(1, 13));
+        grilleEntites[9][8] = fBG;
+        map.put(fBG, new Point(9, 8));
         
-        fBD = new FantomeBD(this);
-        grilleEntites[13][13] = fBD;
-        map.put(fBD, new Point(13, 13));
         
         sg=new SuperGomme(this);
-        grilleEntites[3][11] = sg;
-        map.put(sg, new Point(3, 11));
-        grilleEntites[3][3] = sg;
-        map.put(sg, new Point(3, 3));
-        grilleEntites[11][11] = sg;
-        map.put(sg, new Point(11, 11));
-        grilleEntites[11][3] = sg;
-        map.put(sg, new Point(11, 3));
+        grilleEntites[1][1] = sg;
+        map.put(sg, new Point(1, 1));
+        grilleEntites[10][1] = sg;
+        map.put(sg, new Point(10, 1));
+        grilleEntites[1][10] = sg;
+        map.put(sg, new Point(1, 10));
+        grilleEntites[10][10] = sg;
+        map.put(sg, new Point(10,10));
         
         afficheMurs();
         InitGomme();    
@@ -117,8 +106,15 @@ public class Jeu extends Observable implements Runnable {
               }             
           }
         }
-        //System.out.print(nbGomme);
+        System.out.print(nbGomme);
     }
+    
+
+    public HashMap<Entite, Point> getMap() {
+        return map;
+    }
+    
+ 
     
 public void InitPos()
     {
@@ -127,7 +123,7 @@ public void InitPos()
         {
           for(int j=0; j<SIZE_X;j++)
           {
-              if(grilleEntites[i][j]==fBD || grilleEntites[i][j]==fBG || grilleEntites[i][j]==fHD || grilleEntites[i][j]==f)
+              if( grilleEntites[i][j]==fBG || grilleEntites[i][j]==f)
               {
                   grilleEntites[i][j]=gomme;
               }
@@ -171,105 +167,97 @@ public void InitPos()
         grilleEntites[SIZE_X-1][i] = m;
         map.put(m, new Point(SIZE_X-1,i));
         }
-        for (int j=0; j< 5;j++)
-        {
-        grilleEntites[7][1+j] = m;
-        map.put(m, new Point(7,1+j));
-        grilleEntites[1+j][7] = m;
-        map.put(m, new Point(1+j,7));
-        grilleEntites[7][13-j] = m;
-        map.put(m, new Point(7,13-j));
-        grilleEntites[13-j][7] = m;
-        map.put(m, new Point(13-j,7));
-
-        }
-       grilleEntites[2][4] = m;
-       map.put(m, new Point(2,4));
-       grilleEntites[2][5] = m;
-       map.put(m, new Point(2,5));
-       grilleEntites[2][3] = m;
-       map.put(m, new Point(2,3));
-       grilleEntites[2][2] = m;
-       map.put(m, new Point(2,2));
-       grilleEntites[3][2] = m;
-       map.put(m, new Point(3,2));
-       grilleEntites[4][2] = m;
-       map.put(m, new Point(4,2));
-       grilleEntites[5][2] = m;
-       map.put(m, new Point(5,2));
-       grilleEntites[4][5] = m;
-       map.put(m, new Point(4,5));
-       grilleEntites[4][4] = m;
-       map.put(m, new Point(4,4));
-       grilleEntites[5][4] = m;
-       map.put(m, new Point(5,4));
-       
-       
-       
-       grilleEntites[2][12] = m;
-       map.put(m, new Point(2,12));
-       grilleEntites[2][11] = m;
-       map.put(m, new Point(2,11));
-       grilleEntites[2][10] = m;
-       map.put(m, new Point(2,10));
-       grilleEntites[2][9] = m;
-       map.put(m, new Point(2,9));
-       grilleEntites[3][12] = m;
-       map.put(m, new Point(3,12));
-       grilleEntites[4][12] = m;
-       map.put(m, new Point(4,12));
-       grilleEntites[5][12] = m;
-       map.put(m, new Point(5,12));
-       grilleEntites[4][10] = m;
-       map.put(m, new Point(4,10));
-       grilleEntites[4][9] = m;
-       map.put(m, new Point(4,9));
-       grilleEntites[5][10] = m;
-       map.put(m, new Point(5,10));
-       
+ 
+        //Bloc 1
+        grilleEntites[2][2] = m;
+        map.put(m, new Point(2,2));
+        grilleEntites[3][2] = m;
+        map.put(m, new Point(3,2));
+        grilleEntites[4][2] = m;
+        map.put(m, new Point(4,2));
+        grilleEntites[2][3] = m;
+        map.put(m, new Point(2,3));
+        grilleEntites[3][3] = m;
+        map.put(m, new Point(3,3));
         
-       grilleEntites[12][2] = m;
-       map.put(m, new Point(12,2));
-       grilleEntites[11][2] = m;
-       map.put(m, new Point(11,2));
-       grilleEntites[10][2] = m;
-       map.put(m, new Point(10,2));
-       grilleEntites[9][2] = m;
-       map.put(m, new Point(9,2));
-       grilleEntites[12][3] = m;
-       map.put(m, new Point(12,3));
-       grilleEntites[12][4] = m;
-       map.put(m, new Point(12,4));
-       grilleEntites[12][5] = m;
-       map.put(m, new Point(12,5));
-       grilleEntites[10][4] = m;
-       map.put(m, new Point(10,4));
-       grilleEntites[9][4] = m;
-       map.put(m, new Point(9,4));
-       grilleEntites[10][5] = m;
-       map.put(m, new Point(10,5));
-       
-       grilleEntites[12][12] = m;
-       map.put(m, new Point(12,12));
-       grilleEntites[12][11] = m;
-       map.put(m, new Point(12,11));
-       grilleEntites[12][10] = m;
-       map.put(m, new Point(12,10));
-       grilleEntites[12][9] = m;
-       map.put(m, new Point(12,9));
-       grilleEntites[11][12] = m;
-       map.put(m, new Point(11,12));
-       grilleEntites[10][12] = m;
-       map.put(m, new Point(10,12));
-       grilleEntites[9][12] = m;
-       map.put(m, new Point(9,12));
-       grilleEntites[10][10] = m;
-       map.put(m, new Point(10,10));
-       grilleEntites[10][9] = m;
-       map.put(m, new Point(10,9));
-       grilleEntites[9][10] = m;
-       map.put(m, new Point(9,10));
-       
+        //Bloc 2
+        grilleEntites[6][2] = m;
+        map.put(m, new Point(6,2));
+        grilleEntites[7][2] = m;
+        map.put(m, new Point(7,2));
+        grilleEntites[8][2] = m;
+        map.put(m, new Point(8,2));
+        grilleEntites[9][2] = m;
+        map.put(m, new Point(9,2));
+        grilleEntites[8][3] = m;
+        map.put(m, new Point(8,3));
+        grilleEntites[8][4] = m;
+        map.put(m, new Point(8,4));
+        grilleEntites[7][4] = m;
+        map.put(m, new Point(7,4));
+        grilleEntites[7][5] = m;
+        map.put(m, new Point(7,5));
+        
+        //Bloc 3
+        grilleEntites[5][4] = m;
+        map.put(m, new Point(5,4));
+        grilleEntites[5][5] = m;
+        map.put(m, new Point(5,5));
+        grilleEntites[5][6] = m;
+        map.put(m, new Point(5,6));
+        grilleEntites[5][7] = m;
+        map.put(m, new Point(5,7));
+        grilleEntites[6][7] = m;
+        map.put(m, new Point(6,7));
+        
+        //Bloc 4
+        grilleEntites[10][4] = m;
+        map.put(m, new Point(10,4));
+        grilleEntites[10][5] = m;
+        map.put(m, new Point(10,5));
+        grilleEntites[10][6] = m;
+        map.put(m, new Point(10,6));
+        grilleEntites[10][7] = m;
+        map.put(m, new Point(10,7));
+        
+        //Bloc 5
+        grilleEntites[8][7] = m;
+        map.put(m, new Point(8,7));
+        grilleEntites[8][8] = m;
+        map.put(m, new Point(8,8));
+        grilleEntites[8][9] = m;
+        map.put(m, new Point(8,9));
+        grilleEntites[9][9] = m;
+        map.put(m, new Point(9,9));
+        grilleEntites[7][9] = m;
+        map.put(m, new Point(7,9));
+        
+        //Bloc 6
+        grilleEntites[2][9] = m;
+        map.put(m, new Point(2,9));
+        grilleEntites[3][9] = m;
+        map.put(m, new Point(3,9));
+        grilleEntites[4][9] = m;
+        map.put(m, new Point(4,9));
+        grilleEntites[5][9] = m;
+        map.put(m, new Point(5,9));
+        grilleEntites[2][8] = m;
+        map.put(m, new Point(2,8));
+        
+        //Bloc 7
+        grilleEntites[2][5] = m;
+        map.put(m, new Point(2,5));
+        grilleEntites[2][6] = m;
+        map.put(m, new Point(2,6));
+        grilleEntites[2][7] = m;
+        map.put(m, new Point(2,7));
+        grilleEntites[3][5] = m;
+        map.put(m, new Point(3,5));
+        grilleEntites[3][6] = m;
+        map.put(m, new Point(3,6));
+        grilleEntites[3][7] = m;
+        map.put(m, new Point(3,7));
+        
     }
     
     
@@ -309,10 +297,9 @@ public void InitPos()
         else if (Cadre(pCible) && (objetALaPosition(pCible)instanceof SuperGomme) && objetALaPosition(pCourant)instanceof Pacman) { // a adapter (collisions murs, etc.)
                 Point tampon =pCible;
                 grilleEntites[tampon.x][tampon.y]=null;
-                nbGomme--;
                 score=score+100;
                 System.out.print("Score" + score);
-                //System.out.print(nbGomme);
+                
                 if (nbGomme<=0)
                 {
                     Arret(pCourant, pCible, e);
@@ -324,22 +311,22 @@ public void InitPos()
             deplacerEntite(pCourant, pCible, e);
             retour = true;
             }
-        else if (Cadre(pCible) && objetALaPosition(pCible)==null && (objetALaPosition(pCible)instanceof Pac_Gommes || objetALaPosition(pCible)==null) && (objetALaPosition(pCourant)instanceof Fantome ||objetALaPosition(pCourant)instanceof FantomeHD || objetALaPosition(pCourant)instanceof FantomeBG || objetALaPosition(pCourant)instanceof FantomeBD)) {
+        else if (Cadre(pCible) && objetALaPosition(pCible)==null && (objetALaPosition(pCible)instanceof Pac_Gommes || objetALaPosition(pCible)==null) && (objetALaPosition(pCourant)instanceof Fantome || objetALaPosition(pCourant)instanceof FantomeBG)) {
 
             deplacerEntite(pCourant, pCible, e);
             retour = true;
         }
-        else if(Cadre(pCible) && objetALaPosition(pCible)instanceof Pac_Gommes && (objetALaPosition(pCourant)instanceof Fantome ||objetALaPosition(pCourant)instanceof FantomeHD || objetALaPosition(pCourant)instanceof FantomeBG || objetALaPosition(pCourant)instanceof FantomeBD))
+        else if(Cadre(pCible) && objetALaPosition(pCible)instanceof Pac_Gommes && (objetALaPosition(pCourant)instanceof Fantome || objetALaPosition(pCourant)instanceof FantomeBG ))
         {
             deplacerEntiteFantome(pCourant, pCible, e);
             retour = true;
         }
-        else if(Cadre(pCible) && objetALaPosition(pCible)instanceof SuperGomme && (objetALaPosition(pCourant)instanceof Fantome ||objetALaPosition(pCourant)instanceof FantomeHD || objetALaPosition(pCourant)instanceof FantomeBG || objetALaPosition(pCourant)instanceof FantomeBD))
+        else if(Cadre(pCible) && objetALaPosition(pCible)instanceof SuperGomme && (objetALaPosition(pCourant)instanceof Fantome  || objetALaPosition(pCourant)instanceof FantomeBG))
         {
             deplacerEntiteSuperFantome(pCourant, pCible, e);
             retour = true;
         }
-         else if(Cadre(pCible) && objetALaPosition(pCible)==null && (objetALaPosition(pCourant)instanceof Fantome ||objetALaPosition(pCourant)instanceof FantomeHD || objetALaPosition(pCourant)instanceof FantomeBG || objetALaPosition(pCourant)instanceof FantomeBD))
+         else if(Cadre(pCible) && objetALaPosition(pCible)==null && (objetALaPosition(pCourant)instanceof Fantome || objetALaPosition(pCourant)instanceof FantomeBG))
         {
             deplacerEntiteFantome2(pCourant, pCible, e);
             retour = true;
@@ -349,7 +336,7 @@ public void InitPos()
         else if ((objetALaPosition(pCourant)instanceof Pacman && objetALaPosition(pCourant)instanceof Fantome ) || (objetALaPosition(pCible)instanceof Pacman && objetALaPosition(pCourant)instanceof Fantome ))
         {
             
-            System.out.print(NbVie);
+            //System.out.print(NbVie);
             NbVie--;
             pCourant = map.get(e);
             pCible = calculerPointCible(pCourant, d);
@@ -363,27 +350,10 @@ public void InitPos()
             }
              retour = true;
         }
-    else if ((objetALaPosition(pCourant)instanceof Pacman && objetALaPosition(pCourant)instanceof FantomeHD) || (objetALaPosition(pCible)instanceof Pacman && objetALaPosition(pCourant)instanceof FantomeHD))
-        {  
-            System.out.print(NbVie);
-            NbVie--;
-            pCourant = map.get(e);
-            
-            pCible = calculerPointCible(pCourant, d);
-            if(NbVie>0)
-            {
-             deplacerEntiteColisionHD(pCourant, pCible, e/*,d*/);
-            }
-            else
-            {   
-                Arret(pCourant, pCible, e);    
-            }
-             retour = true;
-        }
                 
     else if ((objetALaPosition(pCourant)instanceof Pacman && objetALaPosition(pCourant)instanceof FantomeBG) || (objetALaPosition(pCible)instanceof Pacman && objetALaPosition(pCourant)instanceof FantomeBG))
         {
-            System.out.print(NbVie);
+            System.out.print(nbGomme);
             NbVie--;
             pCourant = map.get(e);
             pCible = calculerPointCible(pCourant, d);
@@ -398,23 +368,6 @@ public void InitPos()
              retour = true;
         }
                         
-    else if ((objetALaPosition(pCourant)instanceof Pacman && objetALaPosition(pCourant)instanceof FantomeBD) || (objetALaPosition(pCible)instanceof Pacman && objetALaPosition(pCourant)instanceof FantomeBD))
-        {
-            System.out.print(NbVie);
-            NbVie--;
-            pCourant = map.get(e);
-            pCible = calculerPointCible(pCourant, d);
-            if(NbVie>0)
-            {
-             deplacerEntiteColisionBD(pCourant, pCible, e/*,d*/);
-            }
-            else
-            {   
-                Arret(pCourant, pCible, e);    
-            }
-             retour = true;
-        }
-        
       
         else {
             retour = false;
@@ -461,37 +414,27 @@ public void InitPos()
        private void deplacerEntiteColision(Point pCourant, Point pCible, Entite e) {
         RespawnFantome();
     } 
-    private void deplacerEntiteColisionHD(Point pCourant, Point pCible, Entite e) {
-        RespawnFantome();
-    } 
+
     
     private void deplacerEntiteColisionBG(Point pCourant, Point pCible, Entite e) {
         RespawnFantome();
     } 
               
-    private void deplacerEntiteColisionBD(Point pCourant, Point pCible, Entite e) {
-        RespawnFantome();
-    } 
+
     
     private void RespawnFantome()
     {   
-        System.out.print(pacman);
         InitPos();
-                
-        grilleEntites[7][7] = pm;
-        map.put(pm, new Point(7,7));
+        grilleEntites[6][5] = pm;
+        map.put(pm, new Point(6,5));
+    
+
+        grilleEntites[5][1] = f;
+        map.put(f, new Point(5, 1));
         
-        grilleEntites[1][1] = f;
-        map.put(f, new Point(1, 1));
+        grilleEntites[5][10] = fBG;
+        map.put(fBG, new Point(5, 10));
         
-        grilleEntites[13][1] = fHD; 
-        map.put(fHD, new Point(13, 1)); 
-               
-        grilleEntites[1][13] = fBG;
-        map.put(fBG, new Point(1, 13));
-        
-        grilleEntites[13][13] = fBD;
-        map.put(fBD, new Point(13,13));
     }
                      
        private void Arret(Point pCourant, Point pCible, Entite e) {

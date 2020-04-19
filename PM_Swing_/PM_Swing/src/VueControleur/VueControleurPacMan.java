@@ -22,8 +22,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.SwingConstants;
 import javax.swing.JPanel;
 import java.text.*;
+import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import modele.Direction;
 import modele.Fantome;
@@ -32,6 +34,9 @@ import modele.Pacman;
 import modele.Murs;
 import modele.Pac_Gommes;
 import modele.*;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
 
 /** Cette classe a deux fonctions :
  *  (1) Vue : proposer une représentation graphique de l'application (cases graphiques, etc.)
@@ -58,6 +63,7 @@ public class VueControleurPacMan extends JFrame implements Observer {
     private JFrame frame= new JFrame();
     private JFrame frame1= new JFrame();
     private JFrame frame2= new JFrame();
+    private JTextField text;
     
     private JLabel[][] tabJLabel; // cases graphique (au moment du rafraichissement, chaque case va être associé à une icône, suivant ce qui est présent dans la partie modèle)
 
@@ -121,39 +127,34 @@ public class VueControleurPacMan extends JFrame implements Observer {
         return new ImageIcon(image);
     }
     
-    /*public void paintComponent(Graphics g)
-    {
-        try{
-            Image img =ImageIO.read(new File ("Images/bonbon.png"));
-            g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
-        }catch (IOException e)
-        {
-            e.printStackTrace();
-            System.out.print("ERREUR");
-        }
-    }
-    */
-    
     private void placerLesComposantsGraphiques() {
 
         
         setTitle("PacMan");
-        setSize(400, 500);
+        setSize(500, 500);
          // permet de terminer l'application à la fermeture de la fenêtre
-        JComponent grilleJLabels = new JPanel(new GridLayout(15, 15));
+        JComponent grilleJLabels = new JPanel(new GridLayout(12, 12));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
         
+        JPanel panel=new JPanel();
+        JPanel panel2=new JPanel();
+        JTextField score = new JTextField(10);
         
-        JLabel label;
-        label = new JLabel("Score : ");
+        JLabel label = null;
+        panel.add(new JLabel("Score : "));
+        //panel2.add(new JTextField(jeu.score));  renvoie lang.NullPointerException : ne sait pas pourquoi
+        frame1.setContentPane(panel);
+
         JLabel label2;
-        label2 = new JLabel("Vie : ");
-	frame1.setBounds(0, 500, 100, 100);
-        frame2.setBounds(110, 500, 100, 100);
-        frame1.add(label2);
-        frame2.add(label);
+        panel2.add(new JLabel("Vie : "));
+        //panel2.add(new JTextField(jeu.NbVie));  renvoie lang.NullPointerException : ne sait pas pourquoi
+        frame2.setContentPane(panel2);
+	
+        frame1.setBounds(0, 500, 100, 100);
+        frame2.setBounds(120, 500, 100, 100);
         frame1.setVisible(true);
         frame2.setVisible(true);
+        
         // grilleJLabels va contenir les cases graphiques et les positionner sous la forme d'une grille
         tabJLabel = new JLabel[sizeX][sizeY];
         
@@ -220,19 +221,12 @@ public class VueControleurPacMan extends JFrame implements Observer {
                 else if (jeu.getGrille()[x][y] instanceof Pac_Gommes) {
                     
                     tabJLabel[x][y].setIcon(ImageGomme);
-                } 
-                    else if (jeu.getGrille()[x][y] instanceof FantomeBD) {
-                    
-                    tabJLabel[x][y].setIcon(icoFantome);
-                } 
+                }  
                 else if (jeu.getGrille()[x][y] instanceof FantomeBG) {
                     
                     tabJLabel[x][y].setIcon(icoFantome);
-                } 
-                else if (jeu.getGrille()[x][y] instanceof FantomeHD) {
-                    
-                    tabJLabel[x][y].setIcon(icoFantome);
-                } else if (jeu.getGrille()[x][y] instanceof SuperGomme) {
+                }
+                else if (jeu.getGrille()[x][y] instanceof SuperGomme) {
                     
                     tabJLabel[x][y].setIcon(ImageSuperGomme);
                 } 

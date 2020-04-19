@@ -4,14 +4,12 @@
  * and open the template in the editor.
  */
 package modele;
-import java.awt.Image;
 import java.awt.Point;
 import java.util.HashMap;
 import java.util.Observable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.text.html.ImageView;
-import modele.Pac_Gommes;
+
 //import javafx.scene.image.ImageView;
 
 
@@ -31,13 +29,12 @@ public class Jeu extends Observable implements Runnable {
     private SuperGomme sg;
     private FantomeBG fBG;
     private Pac_Gommes gomme;
-    private Point pacman;
-    private Point Ghost;
-    private Point GhostBG;
+
 
     private HashMap<Entite, Point> map = new  HashMap<Entite, Point>(); // permet de récupérer la position d'une entité à partir de sa référence
     private Entite[][] grilleEntites = new Entite[SIZE_X][SIZE_Y]; // permet de récupérer une entité à partir de ses coordonnées
     
+    // Initialisation de la Vie, du Nombre de Gomme et du Score
     public int NbVie = 3;
     public int nbGomme=0;
     public int score=0;
@@ -45,8 +42,6 @@ public class Jeu extends Observable implements Runnable {
     
     
     public Jeu() {
-        
-        
         initialisationDesEntites();
     }
     
@@ -58,12 +53,16 @@ public class Jeu extends Observable implements Runnable {
         return pm;
     }
     
+    public HashMap<Entite, Point> getMap() {
+        return map;
+    }
+    
+    //Permet de placer notre Pacman, les 2 Fantomes, les Gommes, les SuperGommes et les murs dans grilleEntite[][] et dans la map
     private void initialisationDesEntites() {
-        
+      
         pm = new Pacman(this);
         grilleEntites[6][5] = pm;
         map.put(pm, new Point(6,5));
-    
 
         f = new Fantome(this);
         grilleEntites[4][5] = f;
@@ -72,7 +71,6 @@ public class Jeu extends Observable implements Runnable {
         fBG = new FantomeBG(this);
         grilleEntites[9][8] = fBG;
         map.put(fBG, new Point(9, 8));
-        
         
         sg=new SuperGomme(this);
         grilleEntites[1][1] = sg;
@@ -88,8 +86,7 @@ public class Jeu extends Observable implements Runnable {
         InitGomme();    
     }
     
-    //public Point LastPoint();
-    
+    //Initialise grilleEntites[][] et la map en mettant des gommes partout où il n'y pas d'Entité 
     public void InitGomme()
     {
         
@@ -106,19 +103,15 @@ public class Jeu extends Observable implements Runnable {
               }             
           }
         }
-        System.out.print(nbGomme);
-    }
+        //System.out.print(nbGomme);
+    }    
     
-
-    public HashMap<Entite, Point> getMap() {
-        return map;
-    }
-    
- 
-    
+//Permet après colision entre le Pacman et un Fantome/FantomeBG: 
+//- De ré-initialiser grilleEntites[][] en supprimant les Entités Pacman/Fantome/FantomeBG de la map
+//- Met a jour le nombre de gomme présente dans grilleEntites[][]
 public void InitPos()
     {
-       int me=0; 
+       int me=0; //Variable tampon pour récuperer le nombre de gomme
        for(int i=0; i<SIZE_X;i++)
         {
           for(int j=0; j<SIZE_X;j++)
@@ -130,12 +123,7 @@ public void InitPos()
               if(grilleEntites[i][j]==pm)
               {
                  grilleEntites[i][j]=null; 
-              }
-              if(grilleEntites[i][j]==sg)
-              {
-                 grilleEntites[i][j]=sg; 
-              }
-                      
+              }       
               if(grilleEntites[i][j]==gomme)
               {
                   me++;
@@ -151,7 +139,7 @@ public void InitPos()
 
 
     
-    
+    //Place les différents Murs dans grilleEntite[][] et dans la map
     public void afficheMurs()
     {
         Murs m;
@@ -271,7 +259,9 @@ public void InitPos()
         return objetALaPosition(calculerPointCible(positionEntite, d));
     }
     
-    /** Si le déclacement de l'entité est autorisé (pas de mur ou autre entité), il est réalisé
+    /** 
+     * 
+     * Permet de faire déplacer les différents Entités selon des condition très percise
      */
     public boolean deplacerEntite(Entite e, Direction d) {
         
@@ -280,7 +270,7 @@ public void InitPos()
         Point pCourant = map.get(e);
         
         Point pCible = calculerPointCible(pCourant, d);
-       
+        //Si le pacman rencontre une gomme: donc nbGomme diminue et le score augmente. si plus de gomme Arret du jeu
         if (Cadre(pCible) && (objetALaPosition(pCible)instanceof Pac_Gommes) && objetALaPosition(pCourant)instanceof Pacman) { // a adapter (collisions murs, etc.)
                 Point tampon =pCible;
                 grilleEntites[tampon.x][tampon.y]=null;
@@ -294,6 +284,7 @@ public void InitPos()
                 deplacerEntite(pCourant, pCible, e);
             retour = true;
         }
+        //Si le pacman rencontre une SuperGomme: le score augmente. si plus de gomme Arret du jeu
         else if (Cadre(pCible) && (objetALaPosition(pCible)instanceof SuperGomme) && objetALaPosition(pCourant)instanceof Pacman) { // a adapter (collisions murs, etc.)
                 Point tampon =pCible;
                 grilleEntites[tampon.x][tampon.y]=null;
@@ -307,32 +298,31 @@ public void InitPos()
                 deplacerEntite(pCourant, pCible, e);
             retour = true;
         }
+        //si le Pacman ne recontre pas d'Entité, il se déplace juste 
         else if (Cadre(pCible) && (objetALaPosition(pCible) == null) && objetALaPosition(pCourant)instanceof Pacman) {
             deplacerEntite(pCourant, pCible, e);
             retour = true;
             }
-        else if (Cadre(pCible) && objetALaPosition(pCible)==null && (objetALaPosition(pCible)instanceof Pac_Gommes || objetALaPosition(pCible)==null) && (objetALaPosition(pCourant)instanceof Fantome || objetALaPosition(pCourant)instanceof FantomeBG)) {
-
-            deplacerEntite(pCourant, pCible, e);
-            retour = true;
-        }
+        //si Fantome/FantomeBG rencontre une Gomme il se déplace sur la Gomme
         else if(Cadre(pCible) && objetALaPosition(pCible)instanceof Pac_Gommes && (objetALaPosition(pCourant)instanceof Fantome || objetALaPosition(pCourant)instanceof FantomeBG ))
         {
             deplacerEntiteFantome(pCourant, pCible, e);
             retour = true;
         }
+        //si Fantome/FantomeBG rencontre une SuperGomme il se déplace sur la SuperGomme
         else if(Cadre(pCible) && objetALaPosition(pCible)instanceof SuperGomme && (objetALaPosition(pCourant)instanceof Fantome  || objetALaPosition(pCourant)instanceof FantomeBG))
         {
             deplacerEntiteSuperFantome(pCourant, pCible, e);
             retour = true;
         }
+        //si le Fantome/FantomeBG ne recontre pas d'Entité, il se déplace juste 
          else if(Cadre(pCible) && objetALaPosition(pCible)==null && (objetALaPosition(pCourant)instanceof Fantome || objetALaPosition(pCourant)instanceof FantomeBG))
         {
             deplacerEntiteFantome2(pCourant, pCible, e);
             retour = true;
         }
          
-        
+        //si le Fantome rencontre le Pacman et inverssement: On perd une vie, si plus de vie -> Arret du Jeu
         else if ((objetALaPosition(pCourant)instanceof Pacman && objetALaPosition(pCourant)instanceof Fantome ) || (objetALaPosition(pCible)instanceof Pacman && objetALaPosition(pCourant)instanceof Fantome ))
         {
             
@@ -350,8 +340,8 @@ public void InitPos()
             }
              retour = true;
         }
-                
-    else if ((objetALaPosition(pCourant)instanceof Pacman && objetALaPosition(pCourant)instanceof FantomeBG) || (objetALaPosition(pCible)instanceof Pacman && objetALaPosition(pCourant)instanceof FantomeBG))
+        //si le FantomeBG rencontre le Pacman et inverssement: On perd une vie, si plus de vie -> Arret du Jeu           
+        else if ((objetALaPosition(pCourant)instanceof Pacman && objetALaPosition(pCourant)instanceof FantomeBG) || (objetALaPosition(pCible)instanceof Pacman && objetALaPosition(pCourant)instanceof FantomeBG))
         {
             System.out.print(nbGomme);
             NbVie--;
@@ -391,6 +381,7 @@ public void InitPos()
         return pCible;
     }
     
+    //Les différents deplacerEntités permettants de gerer les colisions entre les Entités
     private void deplacerEntite(Point pCourant, Point pCible, Entite e) {
         grilleEntites[pCourant.x][pCourant.y] = null;
         grilleEntites[pCible.x][pCible.y] = e;
@@ -421,7 +412,7 @@ public void InitPos()
     } 
               
 
-    
+    //Après colision entre un Fantome/FantomeBG et le Pacman: on ré-initialise les position du Pacman/Fantome/FantomeBG
     private void RespawnFantome()
     {   
         InitPos();
@@ -444,8 +435,6 @@ public void InitPos()
     } 
        
     
-    
-
     private boolean Cadre (Point p) {
         return  p.x >= 0 && p.x < SIZE_X && p.y >= 0 && p.y < SIZE_Y;
     }

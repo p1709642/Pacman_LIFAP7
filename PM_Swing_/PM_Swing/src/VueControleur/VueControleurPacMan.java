@@ -1,13 +1,10 @@
 package VueControleur;
 
-import java.awt.Graphics;
+import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.TextArea;
 import java.awt.TextComponent;
-import java.awt.Font;
-import javax.swing.JButton;
-import java.awt.Rectangle;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
@@ -22,11 +19,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.SwingConstants;
 import javax.swing.JPanel;
-import java.text.*;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
 import modele.Direction;
 import modele.Fantome;
 import modele.Jeu;
@@ -34,9 +29,7 @@ import modele.Pacman;
 import modele.Murs;
 import modele.Pac_Gommes;
 import modele.*;
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
+
 
 /** Cette classe a deux fonctions :
  *  (1) Vue : proposer une représentation graphique de l'application (cases graphiques, etc.)
@@ -63,8 +56,10 @@ public class VueControleurPacMan extends JFrame implements Observer {
     private JFrame frame= new JFrame();
     private JFrame frame1= new JFrame();
     private JFrame frame2= new JFrame();
+    private JFrame frameRegle= new JFrame();
     private JTextField text;
-    
+    private JTextArea score = new JTextArea();
+    private JTextArea vie = new JTextArea();
     private JLabel[][] tabJLabel; // cases graphique (au moment du rafraichissement, chaque case va être associé à une icône, suivant ce qui est présent dans la partie modèle)
 
 
@@ -132,28 +127,17 @@ public class VueControleurPacMan extends JFrame implements Observer {
         
         setTitle("PacMan");
         setSize(500, 500);
-         // permet de terminer l'application à la fermeture de la fenêtre
         JComponent grilleJLabels = new JPanel(new GridLayout(12, 12));
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
-        
-        JPanel panel=new JPanel();
-        JPanel panel2=new JPanel();
-        JTextField score = new JTextField(10);
-        
-        JLabel label = null;
-        panel.add(new JLabel("Score : "));
-        //panel2.add(new JTextField(jeu.score));  renvoie lang.NullPointerException : ne sait pas pourquoi
-        frame1.setContentPane(panel);
-
-        JLabel label2;
-        panel2.add(new JLabel("Vie : "));
-        //panel2.add(new JTextField(jeu.NbVie));  renvoie lang.NullPointerException : ne sait pas pourquoi
-        frame2.setContentPane(panel2);
-	
-        frame1.setBounds(0, 500, 100, 100);
-        frame2.setBounds(120, 500, 100, 100);
-        frame1.setVisible(true);
-        frame2.setVisible(true);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);              
+        //Met le Score dans les fenètre qui se situe en dessous du Jeu
+        JPanel panelRegle=new JPanel();
+        panelRegle.add(new JLabel("Vous Disposez de TROIS vie"));
+        panelRegle.add(new JLabel("1 Gomme manger = Score + 10"));
+        panelRegle.add(new JLabel("1 SuperGomme manger = Score + 100"));
+        frameRegle.setContentPane(panelRegle);
+        frameRegle.setBounds(120, 500, 300, 300);
+        frameRegle.setVisible(true);
+        frameRegle.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         // grilleJLabels va contenir les cases graphiques et les positionner sous la forme d'une grille
         tabJLabel = new JLabel[sizeX][sizeY];
@@ -171,44 +155,83 @@ public class VueControleurPacMan extends JFrame implements Observer {
         }
         //grilleJLabels.
         
-        
-        //Text titre = new Text(100,30,"Pacman");
         add(grilleJLabels);
-        //label.setBounds(0,0, 1, 1);
-        //label.setOpaque (true);
-        //add(label);
 
+        
     }
-
+    //Si vous gagnez Affichage du Score/ Du nombre de Vie et d'une Image
     private void AffichageWin(){
+        frameRegle.setVisible(false);
+        
         frame.add(new JLabel(ImageWIN));
-        frame.setBounds(400, 0, 500, 370);
-        frame.setVisible(true);
-        //setVisible(false);
-        //frame.setSize(400,500);                
+        frame.setBounds(520, 0, 500, 370);
+        frame.setVisible(true);   
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+        //setVisible(false);  -> Si on veur Enlever la Fenetre Principale du Jeu
+        
+        //Affichage du Score
+        JPanel panel2=new JPanel();
+        panel2.add(new JLabel("Score : "));
+        frame1.setContentPane(panel2);
+        score.setText(String.valueOf(jeu.score));
+        frame1.getContentPane().add(score, BorderLayout.CENTER);
+        frame1.setBounds(0, 500, 100, 100);
+        frame1.setVisible(true);
+        frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        //Affichage du Nombre de Vie
+        JPanel panel=new JPanel();
+        panel.add(new JLabel("Vie : "));
+        frame2.setContentPane(panel);
+	vie.setText(String.valueOf(jeu.NbVie));
+        frame2.getContentPane().add(vie, BorderLayout.CENTER);
+        frame2.setBounds(120, 500, 100, 100);
+        frame2.setVisible(true);
+        frame2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 }
     
+//Si vous perdez Affichage du Score/ Du nombre de Vie et d'une Image    
     private void AffichageLoose(){
+        frameRegle.setVisible(false);
+        
         frame.add(new JLabel(ImageFIN));
-        frame.setBounds(400, 0, 500, 500);
+        frame.setBounds(520, 0, 500, 500);
         frame.setVisible(true);
-        //frame.setSize(400,500);                
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //setVisible(false); -> Si on veur Enlever la Fenetre Principale du Jeu 
+        //Affichage du Score
+        JPanel panel2=new JPanel();
+        panel2.add(new JLabel("Score : "));
+        frame1.setContentPane(panel2);
+        score.setText(String.valueOf(jeu.score));
+        frame1.getContentPane().add(score, BorderLayout.CENTER);
+        frame1.setBounds(0, 500, 100, 100);
+        frame1.setVisible(true);
+        frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        //Affichage du Nombre de Vie
+        JPanel panel=new JPanel();
+        panel.add(new JLabel("Vie : "));
+        frame2.setContentPane(panel);
+	vie.setText(String.valueOf(jeu.NbVie));
+        frame2.getContentPane().add(vie, BorderLayout.CENTER);
+        frame2.setBounds(120, 500, 100, 100);
+        frame2.setVisible(true);
+        frame2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
 }
     /**
      * Il y a une grille du côté du modèle ( jeu.getGrille() ) et une grille du côté de la vue (tabJLabel)
      */
     private void mettreAJourAffichage() {
-
+        
+        
+        
         for (int x = 0; x < sizeX; x++) {
             for (int y = 0; y < sizeY; y++) {
                 if (jeu.getGrille()[x][y] instanceof Pacman) { // si la grille du modèle contient un Pacman, on associe l'icône Pacman du côté de la vue
                     
-                    tabJLabel[x][y].setIcon(icoPacMan);
-                    
-                    
+                    tabJLabel[x][y].setIcon(icoPacMan);   
                     
                 } else if (jeu.getGrille()[x][y] instanceof Fantome) {
                     
@@ -230,19 +253,9 @@ public class VueControleurPacMan extends JFrame implements Observer {
                     
                     tabJLabel[x][y].setIcon(ImageSuperGomme);
                 } 
-                
-                
-                
-                
                 else {
-                    
-                        tabJLabel[x][y].setIcon(icoCouloir);
-                        
-                        
-                    
-                }
-                
-                
+                        tabJLabel[x][y].setIcon(icoCouloir);   
+                }  
 
             }
         }
@@ -254,28 +267,14 @@ public class VueControleurPacMan extends JFrame implements Observer {
         {
            AffichageWin(); 
         }
+        
 
-
+        
     }
 
     @Override
     public void update(Observable o, Object arg) {
-        
-        
-        mettreAJourAffichage();
-                    
-        //img.setImage(new Image("win.png") {});
-
-        
-        /*
-        SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        mettreAJourAffichage();
-                    }
-                }); 
-       */
-        
+        mettreAJourAffichage(); 
     }
 
 }

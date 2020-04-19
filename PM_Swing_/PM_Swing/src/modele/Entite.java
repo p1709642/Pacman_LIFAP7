@@ -28,22 +28,7 @@ public abstract class Entite implements Runnable {
         this.jeu = game;
 
     }
-     
-     static public class EntiteDerPos {
-        public Entite entity;
-        public Point pos;
-
-        public EntiteDerPos(Entite entity, Point posotion) {
-            this.entity = entity;
-            this.pos = posotion;
-        }
-    }
-     
-     
-         
-     
-     
-    
+      
     
     public void avancerDirectionChoisie() {
         jeu.deplacerEntite(this, d);

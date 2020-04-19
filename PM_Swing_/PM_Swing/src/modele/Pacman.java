@@ -6,7 +6,6 @@
 package modele;
 
 import java.awt.Point;
-import java.util.Random;
 
 
 
@@ -16,8 +15,6 @@ import java.util.Random;
  */
 public class Pacman extends Entite {
 
-
-    protected int life = 3;
     
     
     public Point positionPacman()
@@ -40,14 +37,5 @@ public class Pacman extends Entite {
         
     }
 
-    Point getPosition() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    Point position(int i, int i0) {
-        position.x=i;
-        position.y=i0;
-        return position;
-    }
 
 }

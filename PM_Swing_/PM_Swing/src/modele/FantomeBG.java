@@ -7,8 +7,7 @@ package modele;
 
 import java.awt.Point;
 import java.util.Random;
-import java.util.HashMap;
-import java.lang.Math;
+
 /**
  *
  * @author freder
@@ -26,57 +25,40 @@ public class FantomeBG extends Entite {
      @Override
     public void choixDirection() {
         
-        // développer une stratégie plus détaillée (utiliser regarderDansLaDirection(Entité, Direction) , ajouter murs, etc.)
-        /*switch (r.nextInt(4)) {
-            case 0:
-                d = Direction.droite;
-                break;
-            case 1:
-                d = Direction.bas;
-                break;
-            
-            case 2:
-                d = Direction.haut;
-                break;
-            
-            case 3:
-                d = Direction.gauche;
-                break;
-        }*/
+        //On récupère la position du Pacman
         Pacman pm = this.jeu.getPacman();
-        Point posPac = this.jeu.getMap().get(pm);
-        double x_p = posPac.getX();
-        double y_p = posPac.getY();
-         
-        Point posFan = this.jeu.getMap().get(this);
-        double x_f = posFan.getX();
-        double y_f = posFan.getY();
+        Point PositonPacman = this.jeu.getMap().get(pm);
+        double x_p = PositonPacman.getX();
+        double y_p = PositonPacman.getY();
+        
+        //On récupère la position du FantomeBG
+        Point PositionFantome = this.jeu.getMap().get(this);
+        double x_f = PositionFantome.getX();
+        double y_f = PositionFantome.getY();
         
         double x_d = x_f - x_p;
         double y_d = y_f - y_p;
         
-        int choixDir;
+        int Deplacment;
         
         if((Math.abs(x_d)<Math.abs(y_d)) && x_d!=0 && x_d<0)
-            choixDir=0;
+            Deplacment=0;
         else if ((Math.abs(x_d)<Math.abs(y_d)) && x_d!=0 && x_d>0)
-            choixDir=1;
+            Deplacment=1;
         else if ((Math.abs(y_d)<Math.abs(x_d)) && y_d!=0 && y_d<0)
-            choixDir=2;
+            Deplacment=2;
         else if ((Math.abs(y_d)<Math.abs(x_d)) && y_d!=0 && y_d>0)
-            choixDir=3;
+            Deplacment=3;
         else if((Math.abs(x_d)<Math.abs(y_d)) && x_d==0 && y_d<0)
-            choixDir=4;
+            Deplacment=4;
         else if ((Math.abs(x_d)<Math.abs(y_d)) && x_d==0 && y_d>0)
-            choixDir=5;
+            Deplacment=5;
         else if ((Math.abs(y_d)<Math.abs(x_d)) && y_d==0 && x_d<0)
-            choixDir=6;
-        else/* ((Math.abs(y_d)<Math.abs(x_d)) && y_d==0 && x_d>0)*/
-            choixDir=7;
-            
-        
-        
-        switch(choixDir) {
+            Deplacment=6;
+        else
+            Deplacment=7;
+                  
+        switch(Deplacment) {
             case 0:
                 d = Direction.droite;
                 break;

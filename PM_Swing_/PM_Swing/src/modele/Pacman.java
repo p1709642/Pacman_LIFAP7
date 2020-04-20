@@ -16,11 +16,7 @@ import java.awt.Point;
 public class Pacman extends Entite {
 
     
-    
-    public Point positionPacman()
-    {
-        return position;
-    }
+   
 
     public Pacman(Jeu _jeu) {
         super(_jeu);

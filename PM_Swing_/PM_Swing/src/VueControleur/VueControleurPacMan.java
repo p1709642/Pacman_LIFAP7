@@ -43,7 +43,7 @@ public class VueControleurPacMan extends JFrame implements Observer {
 
     private int sizeX; // taille de la grille affichée
     private int sizeY;
-
+    
     private ImageIcon icoPacMan; // icones affichées dans la grille
     private ImageIcon icoFantome;
     private ImageIcon icoCouloir;
@@ -52,12 +52,10 @@ public class VueControleurPacMan extends JFrame implements Observer {
     private ImageIcon ImageFIN;
     private ImageIcon ImageWIN;
     private ImageIcon ImageSuperGomme;
-    private Image image;
     private JFrame frame= new JFrame();
     private JFrame frame1= new JFrame();
     private JFrame frame2= new JFrame();
     private JFrame frameRegle= new JFrame();
-    private JTextField text;
     private JTextArea score = new JTextArea();
     private JTextArea vie = new JTextArea();
     private JLabel[][] tabJLabel; // cases graphique (au moment du rafraichissement, chaque case va être associé à une icône, suivant ce qui est présent dans la partie modèle)

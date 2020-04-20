@@ -276,7 +276,7 @@ public void InitPos()
                 grilleEntites[tampon.x][tampon.y]=null;
                 nbGomme--;
                 score=score+10;
-                System.out.print("Score" + score);
+                System.out.print(" Score :" + score);
                 if (nbGomme<=0)
                 {
                     Arret(pCourant, pCible, e);
@@ -289,7 +289,7 @@ public void InitPos()
                 Point tampon =pCible;
                 grilleEntites[tampon.x][tampon.y]=null;
                 score=score+100;
-                System.out.print("Score: " + score);
+                System.out.print(" Score :" + score);
                 
                 if (nbGomme<=0)
                 {
@@ -473,7 +473,7 @@ public void InitPos()
             notifyObservers(); // notification de l'observer pour le raffraichisssement graphique
 
             try {
-                Thread.sleep(500); // pause de 0.5s
+                Thread.sleep(350); // pause de 0.5s
             } catch (InterruptedException ex) {
                 Logger.getLogger(Pacman.class.getName()).log(Level.SEVERE, null, ex);
             }

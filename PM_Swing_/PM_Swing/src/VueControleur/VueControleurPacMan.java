@@ -51,6 +51,7 @@ public class VueControleurPacMan extends JFrame implements Observer {
     private ImageIcon ImageGomme;
     private ImageIcon ImageFIN;
     private ImageIcon ImageWIN;
+    private ImageIcon ImageTeleportation;
     private ImageIcon ImageSuperGomme;
     private JFrame frame= new JFrame();
     private JFrame frame1= new JFrame();
@@ -106,6 +107,7 @@ public class VueControleurPacMan extends JFrame implements Observer {
         ImageSuperGomme = chargerIcone("Images/superbonbon.png");
         ImageFIN = chargerIcone("Images/GameOver.jpg");
         ImageWIN = chargerIcone("Images/victoire.jpg");
+        ImageTeleportation = chargerIcone("Images/OR.jpg");
     }
 
     private ImageIcon chargerIcone(String urlIcone) {
@@ -135,6 +137,7 @@ public class VueControleurPacMan extends JFrame implements Observer {
         panelRegle.add(new JLabel("Vous Disposez de TROIS vie"));
         panelRegle.add(new JLabel("1 Gomme manger = Score + 10"));
         panelRegle.add(new JLabel("1 SuperGomme manger = Score + 100"));
+        panelRegle.add(new JLabel("La case OR vous permet de vous téléporter"));
         frameRegle.setContentPane(panelRegle);
         frameRegle.setBounds(510, 0, 300, 300);
         frameRegle.setVisible(true);
@@ -254,6 +257,12 @@ public class VueControleurPacMan extends JFrame implements Observer {
                     
                     tabJLabel[x][y].setIcon(ImageSuperGomme);
                 } 
+                
+                else if (jeu.getGrille()[x][y] instanceof Teleportation) {
+                    
+                    tabJLabel[x][y].setIcon(ImageTeleportation);
+                } 
+                
                 else {
                         tabJLabel[x][y].setIcon(icoCouloir);   
                 }  
@@ -264,7 +273,7 @@ public class VueControleurPacMan extends JFrame implements Observer {
         {
            AffichageLoose(); 
         }
-        if (jeu.nbGomme <= 0)
+        if (jeu.nbGomme <= 0 && jeu.nbSuperGomme <=0)
         {
            AffichageWin(); 
         }

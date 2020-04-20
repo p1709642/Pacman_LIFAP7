@@ -1,4 +1,9 @@
 /*
+
+
+    Fait à 85% par MIGEAT thomas
+    Fait à 15% par ALI MROIVILI Djaloud
+
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -10,7 +15,6 @@ import java.util.Observable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-//import javafx.scene.image.ImageView;
 
 
 /** La classe Jeu a deux fonctions 
@@ -29,6 +33,7 @@ public class Jeu extends Observable implements Runnable {
     private SuperGomme sg;
     private FantomeBG fBG;
     private Pac_Gommes gomme;
+    private Teleportation tl;
 
 
     private HashMap<Entite, Point> map = new  HashMap<Entite, Point>(); // permet de récupérer la position d'une entité à partir de sa référence
@@ -38,6 +43,7 @@ public class Jeu extends Observable implements Runnable {
     public int NbVie = 3;
     public int nbGomme=0;
     public int score=0;
+    public int nbSuperGomme=4;
     // TODO : ajouter les murs, couloir, PacGums, et adapter l'ensemble des fonctions (prévoir le raffraichissement également du côté de la vue)
     
     
@@ -61,8 +67,8 @@ public class Jeu extends Observable implements Runnable {
     private void initialisationDesEntites() {
       
         pm = new Pacman(this);
-        grilleEntites[6][5] = pm;
-        map.put(pm, new Point(6,5));
+        grilleEntites[7][3] = pm;
+        map.put(pm, new Point(7,3));
 
         f = new Fantome(this);
         grilleEntites[4][5] = f;
@@ -81,6 +87,10 @@ public class Jeu extends Observable implements Runnable {
         map.put(sg, new Point(1, 10));
         grilleEntites[10][10] = sg;
         map.put(sg, new Point(10,10));
+        
+        tl=new Teleportation(this);
+        grilleEntites[7][5] = tl;
+        map.put(tl, new Point(7,5));
         
         afficheMurs();
         InitGomme();    
@@ -134,6 +144,24 @@ public void InitPos()
         
         nbGomme=me;
     }
+
+// Met à jour la téléportation du Pacman
+public void InitTeleportation()
+    {
+       for(int i=0; i<SIZE_X;i++)
+        {
+          for(int j=0; j<SIZE_X;j++)
+          {
+              if(grilleEntites[i][j]==pm)
+              {
+                 grilleEntites[i][j]=null; 
+              }       
+             
+          }
+        }
+       grilleEntites[1][3] = pm;
+       map.put(pm, new Point(1,3));
+    }
     
     
 
@@ -183,8 +211,6 @@ public void InitPos()
         map.put(m, new Point(8,4));
         grilleEntites[7][4] = m;
         map.put(m, new Point(7,4));
-        grilleEntites[7][5] = m;
-        map.put(m, new Point(7,5));
         
         //Bloc 3
         grilleEntites[5][4] = m;
@@ -246,9 +272,7 @@ public void InitPos()
         grilleEntites[3][7] = m;
         map.put(m, new Point(3,7));
         
-    }
-    
-    
+    } 
     
     
     /** Permet a une entité  de percevoir sont environnement proche et de définir sa strétégie de déplacement 
@@ -277,6 +301,7 @@ public void InitPos()
                 nbGomme--;
                 score=score+10;
                 System.out.print(" Score :" + score);
+                //System.out.print(nbGomme);
                 if (nbGomme<=0)
                 {
                     Arret(pCourant, pCible, e);
@@ -290,8 +315,8 @@ public void InitPos()
                 grilleEntites[tampon.x][tampon.y]=null;
                 score=score+100;
                 System.out.print(" Score :" + score);
-                
-                if (nbGomme<=0)
+                nbSuperGomme--;
+                if (nbGomme<=0 && nbSuperGomme <=0)
                 {
                     Arret(pCourant, pCible, e);
                 }
@@ -316,12 +341,11 @@ public void InitPos()
             retour = true;
         }
         //si le Fantome/FantomeBG ne recontre pas d'Entité, il se déplace juste 
-         else if(Cadre(pCible) && objetALaPosition(pCible)==null && (objetALaPosition(pCourant)instanceof Fantome || objetALaPosition(pCourant)instanceof FantomeBG))
+         else if(Cadre(pCible) && (objetALaPosition(pCible)==null) && (objetALaPosition(pCourant)instanceof Fantome || objetALaPosition(pCourant)instanceof FantomeBG))
         {
             deplacerEntiteFantome2(pCourant, pCible, e);
             retour = true;
         }
-         
         //si le Fantome rencontre le Pacman et inverssement: On perd une vie, si plus de vie -> Arret du Jeu
         else if ((objetALaPosition(pCourant)instanceof Pacman && objetALaPosition(pCourant)instanceof Fantome ) || (objetALaPosition(pCible)instanceof Pacman && objetALaPosition(pCourant)instanceof Fantome ))
         {
@@ -356,6 +380,12 @@ public void InitPos()
                 Arret(pCourant, pCible, e);    
             }
              retour = true;
+        }
+        //si le Pacman rencontre l'Entite Teleportation
+        else if (Cadre(pCible) && (objetALaPosition(pCible)instanceof Teleportation) && objetALaPosition(pCourant)instanceof Pacman)
+                {
+            InitTeleportation();
+            retour = true;
         }
                         
       
@@ -392,6 +422,7 @@ public void InitPos()
         grilleEntites[pCible.x][pCible.y] = e;
         map.put(e, pCible);
     }
+
     private void deplacerEntiteSuperFantome(Point pCourant, Point pCible, Entite e) {
         grilleEntites[pCourant.x][pCourant.y] = sg;
         grilleEntites[pCible.x][pCible.y] = e;
@@ -416,15 +447,14 @@ public void InitPos()
     private void RespawnFantome()
     {   
         InitPos();
-        grilleEntites[6][5] = pm;
-        map.put(pm, new Point(6,5));
+        grilleEntites[6][3] = pm;
+        map.put(pm, new Point(6,3));
     
-
-        grilleEntites[5][1] = f;
-        map.put(f, new Point(5, 1));
+        grilleEntites[3][8] = f;
+        map.put(f, new Point(3,8));
         
-        grilleEntites[5][10] = fBG;
-        map.put(fBG, new Point(5, 10));
+        grilleEntites[7][3] = fBG;
+        map.put(fBG, new Point(7, 3));
         
     }
                      

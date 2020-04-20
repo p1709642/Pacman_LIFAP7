@@ -289,7 +289,7 @@ public void InitPos()
                 Point tampon =pCible;
                 grilleEntites[tampon.x][tampon.y]=null;
                 score=score+100;
-                System.out.print("Score" + score);
+                System.out.print("Score: " + score);
                 
                 if (nbGomme<=0)
                 {

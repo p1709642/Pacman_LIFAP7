@@ -128,14 +128,17 @@ public class VueControleurPacMan extends JFrame implements Observer {
         setTitle("PacMan");
         setSize(500, 500);
         JComponent grilleJLabels = new JPanel(new GridLayout(12, 12));
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);              
-        //Met le Score dans les fenètre qui se situe en dessous du Jeu
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+        
+        
+        
+        //Affiche les règles du Jeu
         JPanel panelRegle=new JPanel();
         panelRegle.add(new JLabel("Vous Disposez de TROIS vie"));
         panelRegle.add(new JLabel("1 Gomme manger = Score + 10"));
         panelRegle.add(new JLabel("1 SuperGomme manger = Score + 100"));
         frameRegle.setContentPane(panelRegle);
-        frameRegle.setBounds(120, 500, 300, 300);
+        frameRegle.setBounds(510, 0, 300, 300);
         frameRegle.setVisible(true);
         frameRegle.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         

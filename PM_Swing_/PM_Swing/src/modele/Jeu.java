@@ -1,8 +1,8 @@
 /*
 
 
-    Fait à 85% par MIGEAT thomas
-    Fait à 15% par ALI MROIVILI Djaloud
+    Fait par MIGEAT thomas à 100%
+    
 
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -367,7 +367,7 @@ public void InitTeleportation()
         //si le FantomeBG rencontre le Pacman et inverssement: On perd une vie, si plus de vie -> Arret du Jeu           
         else if ((objetALaPosition(pCourant)instanceof Pacman && objetALaPosition(pCourant)instanceof FantomeBG) || (objetALaPosition(pCible)instanceof Pacman && objetALaPosition(pCourant)instanceof FantomeBG))
         {
-            System.out.print(nbGomme);
+            //System.out.print(nbGomme);
             NbVie--;
             pCourant = map.get(e);
             pCible = calculerPointCible(pCourant, d);
@@ -453,8 +453,8 @@ public void InitTeleportation()
         grilleEntites[3][8] = f;
         map.put(f, new Point(3,8));
         
-        grilleEntites[7][3] = fBG;
-        map.put(fBG, new Point(7, 3));
+        grilleEntites[8][1] = fBG;
+        map.put(fBG, new Point(8, 1));
         
     }
                      
